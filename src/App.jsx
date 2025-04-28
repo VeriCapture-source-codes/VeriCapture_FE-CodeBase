@@ -2,7 +2,7 @@ import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import ForgotPassword from './ForgetPassword.jsx'
 import VerifyResetOtp from './VerifyOtp.jsx'
-import ResetPassword from './ForgetPassword.jsx'
+import ResetPassword from './ResetPassword.jsx'
 import {Toaster} from 'react-hot-toast'
 
 function App() {
