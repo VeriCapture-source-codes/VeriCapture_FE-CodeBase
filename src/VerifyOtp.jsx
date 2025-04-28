@@ -1,20 +1,34 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { apiRequest } from './utils/api';
 import { toast } from 'react-hot-toast'; 
 
 function VerifyResetOtp() {
-  const location = useLocation();
-  const params = new URLSearchParams(location.search);
-  const email = params.get('email');
-
   const navigate = useNavigate();
+  const location = useLocation();
+  
+  // Read email from URL params (query string) or state
+  const params = new URLSearchParams(location.search);
+  const emailFromQuery = params.get('email');
+  const emailFromState = location.state?.email;
+
+  // Use the email from state first, then fallback to URL
+  const email = emailFromState || emailFromQuery;
+
+  
   const [otp, setOtp] = useState(new Array(6).fill(''));
   const inputRefs = useRef([]);
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isResending, setIsResending] = useState(false);
   const [resendTimer, setResendTimer] = useState(0);
+
+  useEffect(() => {
+    if (!email) {
+      toast.error('No email found! Please try again.');
+      navigate('/forgot-password');
+    }
+  }, [email, navigate]);
 
   const handleChange = (element, index) => {
     const value = element.value.replace(/[^0-9]/g, '');
@@ -37,7 +51,7 @@ function VerifyResetOtp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage('');
+    
 
     const fullOtp = otp.join('');
     if (fullOtp.length !== 6) {
@@ -56,13 +70,10 @@ function VerifyResetOtp() {
         },
       });
 
-      console.log('Verify OTP Response:', data);
-
       if (data.success) {
         toast.success('✅ OTP verified! Redirecting...');
-        console.log('OTP verified successfully! Redirecting...');
         setTimeout(() => {
-           navigate('/password-page-reset');
+          navigate('/password-page-reset', { state: { email } });
         }, 1500);
       } else {
         toast.error(data.message || '❌ OTP verification failed.');
@@ -74,6 +85,7 @@ function VerifyResetOtp() {
       setIsSubmitting(false);
     }
   };
+  
 
   const handleResend = async () => {
     if (resendTimer > 0) return;
@@ -85,8 +97,6 @@ function VerifyResetOtp() {
         route: '/users/resend-otp',
         body: { email },
       });
-
-      console.log('Resend OTP Response:', data);
 
       if (data.success) {
         toast.success('✅ New OTP sent successfully.');
@@ -136,6 +146,8 @@ function VerifyResetOtp() {
         We have sent a 6 digit code to the Email Address <br />
         <span className="font-semibold">{maskEmail(email)}</span>
       </p>
+
+      
 
       <form onSubmit={handleSubmit} className="flex flex-col items-center w-full max-w-md">
         <div className="flex justify-between mb-4 w-full">

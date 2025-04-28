@@ -44,10 +44,10 @@ const ForgotPassword = () => {
       if (data.success) {
         toast.success('Request successful! Redirecting...');
         setTimeout(() => {
-          navigate('/verify-otp', {
+          navigate(`/verify-otp?email=${form.emailOrUsername}`, {
             state: { email: form.emailOrUsername },
           });
-         }, 1000);
+        }, 1000);
       } else {
         toast.error(data.message || 'There was an issue processing your request. Please try again later.');
       }

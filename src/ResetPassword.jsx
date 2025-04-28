@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { apiRequest } from './utils/api'; 
 import { Eye, EyeOff } from 'lucide-react'; 
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+ 
+
 
 function ResetPassword() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const email = location.state?.email;
+  
+
   const [form, setForm] = useState({
     newPassword: '',
     confirmPassword: '',
@@ -44,7 +52,8 @@ function ResetPassword() {
         method: 'POST',
         route: '/users/reset-password',
         body: {
-          password: form.newPassword,
+          email: email,
+          newPassword: form.newPassword,
         },
       });
 
@@ -52,10 +61,10 @@ function ResetPassword() {
 
       if (data.success) {
         setMessage('Password reset successful! Redirecting...');
-        // setTimeout(() => {
-          
-        // }, 1000);
-        navigate('/');
+        setTimeout(() => {
+          navigate('/');
+         }, 1000);
+        
 
       } else {
         setMessage(data.message || 'Password reset failed.');
