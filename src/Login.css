@@ -1,0 +1,489 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  width: 95.5vw;
+  background: linear-gradient(to right, #f8f9fa, #e9ecef);
+  padding: 0rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.login-form {
+  flex: 1;
+  max-width: 500px;
+}
+
+.login-image {
+  flex: 1;
+  text-align: center;
+}
+
+.login-image img {
+  max-width: 100px;
+  width: 70vw;
+  height: 120vh;
+  margin-left: 0px;
+}
+.vericapture-logo2 {
+  background-color: rgb(248, 246, 246);
+  position: relative;
+  top: -60px;
+  right: 20px;
+}
+.register{
+  position: relative;
+  top: -150px;
+  left: 130px;
+  font-size: 18px;
+  color: #14ffa5;
+  text-decoration: none;
+  font-weight: bold;
+}
+.register:hover{
+  text-decoration: underline;
+}
+h2 {
+  margin-bottom: 1.5rem;
+  margin-right: 0px;
+  margin-left: 80px;
+  margin-top: 90px;
+  font-size: 2rem;
+  color: #000;
+}
+
+.form-group2 {
+  display: block;
+  margin-top: 0rem;
+  margin-right: 0px;
+  margin-left: 100px;
+}
+.form-group2 span{
+  display: flex;
+}
+.social-login2 {
+  display: block;
+  margin-top: 0rem;
+  margin-left: 6rem;
+  color: #000;
+}
+
+a.google-btn2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  left: 0px;
+  gap: 0.5rem;
+  padding: 1.1rem 2rem;
+  width: 23rem;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+  font-size: 1.1rem;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.google-btn2:hover {
+  background-color: #e0e0e0;
+  transform: scale(1.05);
+  border: 1px solid #5cf7ae;
+}
+/* THIS STYLES ONLY THE G ICON */
+.google-btn2 i.fa-google {
+  background: linear-gradient(to bottom left, transparent 49%, #fbbc05 50%) 0
+  25%/48% 40%,
+  linear-gradient(to top left, transparent 49%, #fbbc05 50%) 0 75%/48% 40%,
+  linear-gradient(-40deg, transparent 53%, #ea4335 54%),
+  linear-gradient(45deg, transparent 46%, #4285f4 48%), #34a853;
+background-repeat: no-repeat;
+-webkit-background-clip: text;
+background-clip: text;
+color: transparent;
+-webkit-text-fill-color: transparent;
+}
+
+/* OPTIONAL: little rotation on hover */
+.google-btn2:hover i.fa-google {
+  transform: rotate(10deg);
+  transition: transform 0.3s ease;
+}
+.social-icons-row2 {
+  display: flex;
+  justify-content: center;
+  gap: 0.2rem;
+  margin-left: 65px;
+  margin-top: 20px;
+}
+a.media-button2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 76px;
+  border-radius: 8px;
+  margin-top: 2px;
+  text-decoration: none;
+  background-color: #f5f5f5;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  font-size: 2rem;
+  color: #0b1cb9;
+}
+
+a.media-button2:hover {
+  background-color: #e0e0e0;
+  transform: scale(1.05);
+  border: 1px solid #5cf7ae;
+}
+.facebook-btn2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+i.fa-facebook {
+  width: 30px;
+  height: 30px;
+}
+.x-icon {
+  width: 30px;
+  height: 30px;
+}
+.line-container2 {
+  position: relative;
+  width: 70%;
+  margin: 4rem 0 0 8.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.line2 {
+  width: 100%;
+  height: 2px;
+  background-color: #ccc;
+  position: relative;
+}
+
+.or-text {
+  position: absolute;
+  background: white;
+  padding: 0 1rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #555;
+  border-radius: 40px;
+}
+
+.login-form form div {
+  margin-bottom: 1rem;
+}
+ /* This styles all normal input fields */
+ .login-form input[type="text"],
+ .login-form input[type="email"],
+ .login-form input[type="password"] {
+   width: 93%;
+   padding: 1.2rem;
+   margin-top: 1.3rem;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+   margin-left: 6rem;
+   display: block;
+   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+ }
+ 
+ .login-form input[type="text"]:hover,
+ .login-form input[type="email"]:hover,
+ .login-form input[type="password"]:hover {
+   border-color: #14ffa5;
+   color: #aaa;
+   font-size: 0.9rem;
+ }
+.password-wrapper {
+  position: relative;
+  width: 100%;
+  margin-left: 0rem;
+  margin-top: 0.3rem;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding: 1.2rem;
+  padding-right: 3rem; /* Make space for the icon */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  right: 0px;
+  left: 420px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.check-to2{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+ input[type="checkbox"]{
+  display: block;
+}
+ label{
+  display: block;
+  align-items: left;
+  font-size: 0.7rem;
+  position: relative;
+  top: 0px;
+  right: 0px;
+  left: 52px;
+}
+ span{
+  margin-top: 8px;
+  margin-right: 60px;
+}
+.forgot{
+  display: flex;
+  width: 90%;
+  position: relative;
+  top: -65px;
+  right: 0px;
+  left: 25px;
+}
+.login-form a {
+  color: #00fc9b;
+  text-decoration: none;
+  margin-left: 0rem;
+  margin-right: 0rem;
+}
+
+.login-form a:hover {
+  text-decoration: underline;
+}
+
+.login-form button {
+  width: 93%;
+  padding: 1.2rem;
+  background-color: black;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 6rem;
+  margin-top: 0rem;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.login-form button:hover {
+  background-color: #474747;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .register-container {
+    padding: 0rem 0rem !important;
+    border: none;
+    border-radius: 0;
+    max-width: 98vw !important;
+    width: 868px !important;
+  }
+  span{
+    font-size: 1rem !important;
+    margin-left: 125px !important;
+  }
+  a.form-group {
+    width: 50% !important;
+    font-size: 0.6rem !important;
+    margin-right: 0px !important;
+  }
+  .register-form input[type="text"],
+  .register-form input[type="email"],
+  .register-form input[type="password"],
+  .register-form .country-select,
+  .register-form button {
+    width: 98% !important;
+    margin-left: 50% !important;
+    font-size: 18px;
+  }
+  
+  .name-row {
+    flex-direction: column;
+    align-items: center;
+    margin-left: 0;
+  }
+
+  .name-row input[type="text"] {
+    width: 100%;
+  }
+
+  .line-container {
+    margin: 2rem auto;
+    width: 80%;
+  }
+
+  .social-login {
+    margin-left: 0;
+  }
+  .media-button{
+    padding: 1rem 4.8rem !important;
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Mobile View */
+  .login-container {
+    padding: 0rem 8rem !important;
+    border: none;
+    border-radius: 0;
+    width: 350px !important;
+    margin-right: 80px !important;
+  }
+.img-fluid {
+    width: 50vw !important;
+    height: auto;
+  }
+  .register {
+    padding: 1rem;
+    max-width: 66% !important;
+    margin-right: 10px !important;
+    margin-left: 0px !important;
+  }
+  .vericapture-logo2{
+    width: 28% !important;
+    height: auto;
+    margin-left: 255px !important;
+
+  }
+  .login-form h2 {
+    font-size: 1.5rem;
+    margin-left: 350px !important;
+  }
+
+form{
+  width: 100%;
+    margin-left: 190px !important;
+  }
+  
+  .form-group {
+  font-size: 16px;
+  margin-right: 130px !important;
+  }
+
+  a.login {
+    margin-right: 0px!important;
+  }
+  span{
+    font-size: 0.9rem !important;
+    margin-left: 89px !important;
+    width: 100% !important;
+  }
+  a.form-group {
+    width: 50%;
+    font-size: 0.6rem;
+    margin-right: 20px;
+  }
+  .social-login2 {
+    margin-left: 120px !important;
+  }
+  .a.google-btn {
+    margin-top: 10px !important;
+    margin-left: 80px !important;
+    width: 70% !important;
+    padding: 1.5rem 1.3rem !important;
+  }
+  .login-form input[type="text"],
+  .login-form input[type="email"],
+  .login-form input[type="password"],
+  .login-form .country-select,
+  .login-form button {
+    width: 50% !important;
+    margin-left: 0px !important;
+  }
+
+  .password-wrapper {
+    margin-left: 0;
+  }
+
+  .password-toggle-icon {
+    left: 160px !important;
+  }
+
+  .name-row {
+    flex-direction: column;
+    margin-left: 0;
+    gap: 0.5rem;
+  }
+
+  .name-row input[type="text"] {
+    width: 100%;
+  }
+
+  .register-form span,
+  .register-form a {
+    margin-left: 0;
+  }
+
+  .line-container {
+    margin-right: 30px !important;
+    width: 90%;
+  }
+.line2 {
+    width: 100%;
+    height: 2px;
+    background-color: #ccc;
+    position: relative;
+    right: 50px;
+  }
+  .or-text {
+    display: flex;
+    position: absolute;
+    background: white;
+    padding: 0 0.5rem !important;
+    font-size: 0.8rem !important;
+    width: 80% !important;
+    font-weight: bold;
+    color: #555;
+    border-radius: 10px;
+    right: 65px;
+  }
+  .social-login {
+    margin-top: 2rem;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .google-btn {
+    padding: 1.5rem 1.3rem !important;
+    width: 51vw;
+    font-size: 0.8rem !important;
+  }
+
+  .facebook-btn,
+  a.media-button {
+    width: 100%;
+    padding: 1rem;
+    font-size: 2rem;
+  }
+
+  a.media-button {
+    width: 90% !important;
+    padding: 1rem 2rem !important;
+  }
+  .check-to{
+    margin-left: 0px;
+  }
+}

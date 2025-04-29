@@ -87,7 +87,7 @@ function ResetPassword() {
 
       {/* Reset Password Form */}
       <form onSubmit={handleSubmit} className="w-full max-w-sm p-6 bg-white rounded-lg shadow-md">
-        <h2 className="mb-6 text-2xl font-bold text-center">Reset Password</h2>
+        <h2 className="mb-6 text-3xl font-bold text-center">Reset Password</h2>
 
         {/* Lock Image */}
         <div className="flex justify-center mb-6">

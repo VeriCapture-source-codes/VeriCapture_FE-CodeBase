@@ -4,7 +4,11 @@ import ForgotPassword from './ForgetPassword.jsx'
 import VerifyResetOtp from './VerifyOtp.jsx'
 import ResetPassword from './ResetPassword.jsx'
 import {Toaster} from 'react-hot-toast'
-
+import ExplorePage from './Explore.jsx'
+import Login from './Login.jsx'
+import Register from './Register.jsx'
+import Profile from './CreateProfile.jsx'
+import '@fortawesome/fontawesome-free/css/all.min.css'
 function App() {
   return (
     <div>
@@ -32,7 +36,20 @@ function App() {
         {/* Reset Password */}
         <Route path="/password-page-reset" element={<ResetPassword />} />
 
-        <Route
+        {/* Explore Page */}
+        <Route path="/explore" element={<ExplorePage />} />
+
+        {/* Login Page */}
+        <Route path="/login" element={<Login />} />
+
+        {/* Register Page */}
+        <Route path="/register" element={<Register />} />
+
+        {/* Profile Page */}
+        <Route path="/profile" element={<Profile />} />
+
+     {/* 404 Page */}
+      <Route
        path="*"
       element={
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 px-4">
