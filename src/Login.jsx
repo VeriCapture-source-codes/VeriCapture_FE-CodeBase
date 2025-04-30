@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { apiRequest } from './utils/api';
 import './Login.css';
@@ -18,6 +18,7 @@ function Login() {
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,7 +43,7 @@ function Login() {
     setIsSubmitting(true);
 
     try {
-      const data = await apiRequest({
+      const response = await apiRequest({
         method: 'POST',
         route: '/users/sign-in-user',
         body: {
@@ -51,12 +52,15 @@ function Login() {
         },
       });
 
-      if (data.success && data.data?._id) {
-        localStorage.setItem('authToken', data.data._id);
+      console.log("Login Response:", response);
+
+      if (response.success) {
+        const token = response.data?._id || response.data?.token || 'session';
+        localStorage.setItem('authToken', token);
         setMessage('Login successful! Redirecting...');
-        setTimeout(() => navigate('/explore'), 1000);
+        setShouldRedirect(true);
       } else {
-        setMessage(typeof data.message === 'string' ? data.message : 'Login failed.');
+        setMessage(typeof response.message === 'string' ? response.message : 'Login failed.');
       }
     } catch (error) {
       console.error('Login Error:', error);
@@ -65,6 +69,16 @@ function Login() {
       setIsSubmitting(false);
     }
   };
+
+  useEffect(() => {
+    if (shouldRedirect) {
+      const timer = setTimeout(() => {
+        console.log("Redirecting to /explore...");
+        navigate('/explore');
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [shouldRedirect, navigate]);
 
   return (
     <div className="login-wrapper">
