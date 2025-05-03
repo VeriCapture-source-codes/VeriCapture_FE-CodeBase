@@ -1,54 +1,69 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { apiRequest } from './utils/api';
-import './Register.css';
-import image6 from './assets/image6.png';
-import bxHide from './assets/bx-hide.png';
-import bxShow from './assets/bx-show.png';
-import vericapture from './assets/vericapture.png';
-import '@fortawesome/fontawesome-free/css/all.min.css';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
+import './Register.css'
+import { toast, Toaster } from "react-hot-toast";
+import { apiRequest } from "./utils/api";
+
+const countries = [
+  "United States", "Canada", "United Kingdom", "Germany", "France", "India", "China", "Japan",
+  "Brazil", "Australia", "Mexico", "Italy", "South Korea", "Spain", "Russia", "Netherlands",
+  "Sweden", "Norway", "Denmark", "Finland", "New Zealand", "South Africa", "Nigeria", "Kenya",
+  "Egypt", "Argentina", "Chile", "Colombia", "Turkey", "Poland", "Portugal", "Ukraine",
+  "Philippines", "Malaysia", "Singapore", "Thailand", "Vietnam", "Indonesia", "Pakistan", "Bangladesh"
+];
 
 function Register() {
-  const navigate = useNavigate();
-
+  const [showPassword, setShowPassword] = useState(false);
+  const [agreeTerms, setAgreeTerms] = useState(false);
   const [form, setForm] = useState({
     firstName: '',
     lastName: '',
     email: '',
     userName: '',
     password: '',
-    termsAccepted: false,
-    country: '',
-  });
-
-  const [message, setMessage] = useState('');
+    
+});
+  const [passwordError, setPasswordError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setForm((prev) => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value,
-    }));
-  };
+  const [shouldRedirect, setShouldRedirect] = useState(false);
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+ const emailRege = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage('');
+    const { firstName, lastName, email, userName, password} = form;
 
-    if (!form.termsAccepted) {
-      setMessage('You must accept the terms and conditions.');
+    if (!firstName || !lastName || !email || !userName || !password ) {
+      toast.error('Please fill in all fields.');
       return;
     }
 
-    if (form.password.length < 4) {
-      setMessage('Your password must be more than four characters.');
+    if (firstName.length < 2 || lastName.length < 2 || userName.length < 2) {
+      toast.error('First name, last name, and username must be at least 2 characters.');
       return;
+    }
+
+    if (!emailRege.test(email)) {
+      toast.error('Please enter a valid email address.');
+      return;
+    }
+
+    if (password.length < 4) {
+      setPasswordError('Your password must be more than four characters.');
+      return;
+    } else {
+      setPasswordError('');
     }
 
     setIsSubmitting(true);
@@ -57,7 +72,7 @@ function Register() {
       const response = await apiRequest({
         method: 'POST',
         route: '/users/create-form',
-        body: {
+        body: { 
           firstName: form.firstName,
           lastName: form.lastName,
           email: form.email,
@@ -66,159 +81,178 @@ function Register() {
         },
       });
 
+      console.log("Signup Response:", response);
+
       if (response.success) {
-        setMessage(typeof response.data === 'string' ? response.data : 'Registration successful!');
-        setTimeout(() => navigate('/login'), 1500);
+        toast.success('Account created successfully! Redirecting...');
+        setShouldRedirect(true);
       } else {
-        setMessage(typeof response.message === 'string' ? response.message : 'Registration failed.');
+        toast.error(typeof response.message === 'string' ? response.message : 'Signup failed.');
       }
     } catch (error) {
-      console.error('Registration Error:', error);
-      setMessage('An unexpected error occurred.');
+      console.error('Signup Error:', error);
+      toast.error('An unexpected error occurred.');
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  useEffect(() => {
+    if (shouldRedirect) {
+      const timer = setTimeout(() => {
+        console.log("Redirecting to /login...");
+        navigate('/login');
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [shouldRedirect, navigate]);
+
   return (
-    <div className="register-wrapper">
-      <div className="register-container">
-        <div className="register-image">
-          <img src={image6} alt="Illustration" className="img-fluid" />
-        </div>
+    <div className="auth-container">
+    <Toaster position="top-center" reverseOrder={false} />
 
-        <div className="register-form">
-          <img src={vericapture} alt="Vericapture Logo" className="vericapture-logo" />
-          <h2>Register</h2>
-
-          <form onSubmit={handleSubmit}>
-            <p className="already-account">
-              Already have an account?{' '}
-              <span className="login" onClick={() => navigate('/login')} style={{ cursor: 'pointer', color: 'blue' }}>
-                Login
-              </span>
-            </p>
-
-            <div className="name-row">
-              <input
-                type="text"
-                name="firstName"
-                placeholder="First Name"
-                value={form.firstName}
-                onChange={handleChange}
-                required
-              />
-              <input
-                type="text"
-                name="lastName"
-                placeholder="Last Name"
-                value={form.lastName}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={form.email}
-              onChange={handleChange}
-              required
-              autoComplete="off"
-            />
-            <input
-              type="text"
-              name="userName"
-              placeholder="Username"
-              value={form.userName}
-              onChange={handleChange}
-              required
-            />
-
-            <div className="password-wrapper">
-              <input
-                type={showPassword ? 'text' : 'password'}
-                name="password"
-                placeholder="Password"
-                value={form.password}
-                onChange={handleChange}
-                required
-              />
-              <img
-                src={showPassword ? bxShow : bxHide}
-                alt="Toggle Password"
-                onClick={togglePasswordVisibility}
-                className="password-toggle-icon"
-              />
-            </div>
-
-            <select
-              name="country"
-              className="country-select"
-              value={form.country}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select your country</option>
-              {[
-                'USA', 'Canada', 'UK', 'Australia', 'India', 'Germany', 'France', 'Japan', 'China', 'Brazil',
-                'South Africa', 'Mexico', 'Italy', 'Spain', 'Netherlands', 'Russia', 'Nigeria',
-              ].map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select>
-
-            <div className="terms-row">
-              <label>
-                <input
-                  type="checkbox"
-                  name="termsAccepted"
-                  checked={form.termsAccepted}
-                  onChange={handleChange}
-                />
-                I accept the terms and conditions
-              </label>
-
-              <span className="forgot-password">
-                Forgot password? <a href="./request-password-reset-otp">Change Password</a>
-              </span>
-            </div>
-
-            {typeof message === 'string' && message.trim() !== '' && (
-              <p className="form-message" style={{ color: 'crimson' }}>
-                {message}
-              </p>
-            )}
-
-            <button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? 'Registering...' : 'Register'}
-            </button>
-
-            <div className="line-container">
-              <div className="line2" />
-              <div className="or-text">or sign up with</div>
-            </div>
-
-            <div className="social-login">
-              <a href="#" className="google-btn">
-                <i className="fab fa-google"></i> Sign up with Google
-              </a>
-              <div className="social-icons-row">
-                <a className="media-button facebook-btn" href="#"><i className="fab fa-facebook"></i></a>
-                <a className="media-button" href="#">
-                  <svg className="x-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
-                    <path d="M 6.9 6 L 21.1 26.7 L 6.2 44 L 9.4 44 L 22.5 28.8 L 33 44 L 43 44 L 28.1 22.3 L 42.2 6 L 39 6 L 26.7 20.3 L 16.9 6 L 6.9 6 z" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
+    <div className="auth-image">
+      <img src="/image6.png" alt="network" className="signup-image" />
     </div>
+
+    <div className="auth-right">
+      <div className="auth-logo">
+      <img src="/vericapture.png" alt="logo" /> </div>
+
+      <form onSubmit={handleSubmit} className="auth-form">
+        <h1 className="signup-title">Create an account</h1>
+        <p>Already have an account? <a href="./login">Log in </a> </p>
+
+        <div style={{ display:'flex', gap:'10px'}}>
+          <input
+            name="firstName"
+            type="text"
+            placeholder="First name"
+            value={form.firstName}
+            onChange={handleChange}
+          />
+          <input
+            name="lastName"
+            type="text"
+            placeholder="Last name"
+            value={form.lastName}
+            onChange={handleChange}
+          />
+        </div>
+
+        <input
+          name="email"
+          type="email"
+          placeholder="Email"
+          value={form.email}
+          onChange={handleChange}
+        />
+
+        <input
+          name="userName"
+          type="text"
+          placeholder="Create Username"
+          value={form.userName}
+          onChange={handleChange}
+        />
+
+<div className="password-wrapper">
+  <input
+    type={showPassword ? "text" : "password"}
+    name= "password"
+    placeholder="Password"
+    value={form.password}
+    onChange={handleChange}
+    className={`input-full ${passwordError ? "input-error" : ""}`}
+    required
+  />
+  <span className="toggle-password" onClick={togglePasswordVisibility}>
+    {showPassword ? (
+      <EyeIcon className="eye-icon" size={20} />
+    ) : (
+      <EyeOffIcon className="eye-icon" size={20} />
+    )}
+  </span>
+   {passwordError && <p className="error-text">{passwordError}</p>}
+</div>
+
+        <select
+          name="country"
+          className="input-full"
+          value={form.country}
+          onChange={handleChange}
+        >
+          <option value="">Select Location</option>
+          {countries.map((country) => (
+            <option key={country} value={country}>{country}</option>
+          ))}
+        </select>
+
+        <div className="terms-container">
+          <input
+            id="terms"
+            type="checkbox"
+            checked={agreeTerms}
+            onChange={(e) => setAgreeTerms(e.target.checked)}
+          />
+          <label htmlFor='terms'>
+            I agree to the <a href="#">Terms and Conditions</a>
+          </label>
+        </div>
+
+         <button
+          type="submit"
+          className={`submit-btn ${agreeTerms ? "" : "disabled"}`}
+          disabled={
+            !agreeTerms ||
+            isSubmitting ||
+            !form.firstName ||
+            !form.lastName ||
+            !form.email ||
+            !form.userName ||
+            !form.password ||
+            !form.country ||
+            form.firstName.length < 2 ||
+            form.lastName.length < 2 ||
+            form.userName.length < 2 ||
+            !emailRege.test(form.email) ||
+            form.password.length < 4
+          }
+        >
+          {isSubmitting ? 'Creating...' : 'Create account'}
+        </button>
+
+        <div className="divider">
+        <span>or sign up with</span> 
+        </div>
+
+           {/* Social Buttons */}
+          <div className="social-buttons">
+            <button className="social-button" arial-label="Sign in with Google">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+    <path fill="#fbc02d" d="M43.6 20.5H42V20H24v8h11.3c-1.7 4.5-6 7.5-11.3 7.5-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l6-6C33.4 5.1 28.9 3 24 3 12.9 3 4 11.9 4 23s8.9 20 20 20c11 0 19.9-8.9 19.9-20 0-1.3-.1-2.7-.3-3.5z"/>
+    <path fill="#e53935" d="M6.3 14.7l6.6 4.8c1.8-3.5 5.1-6.1 9.1-6.9V4.2C14.4 5.3 8.9 9.2 6.3 14.7z"/>
+    <path fill="#4caf50" d="M24 44c4.8 0 9.2-1.6 12.7-4.3l-5.9-4.8C28.6 36.2 26.4 37 24 37c-5.3 0-9.6-3-11.4-7.5l-6.5 5c3 6.1 9.3 10.5 17.9 10.5z"/>
+    <path fill="#1565c0" d="M43.6 20.5H42V20H24v8h11.3c-0.7 1.8-1.9 3.5-3.3 4.8l5.9 4.8c-0.4 0.3 7.1-6.6 7.1-17.1 0-1.3-.1-2.7-.3-3.5z"/>
+    </svg>
+    </button>
+
+    <button className="social-button">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <path fill="#3b5998" d="M29 0H3C1.4 0 0 1.4 0 3v26c0 1.6 1.4 3 3 3h13V20h-4v-5h4v-3c0-4 2.4-6.3 6-6.3 1.7 0 3.1.1 3.5.2v4h-2.4c-1.9 0-2.3.9-2.3 2.2V15h5l-1 5h-4v12h8c1.6 0 3-1.4 3-3V3c0-1.6-1.4-3-3-3z"/>
+</svg>
+  </button>
+
+  <button className="social-button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1227">
+  <path fill="#000" d="M723 568L1169 0H1070L677 500 349 0H0L471 711 0 1227H99L518 694l351 533h349L723 568zM568 619l-51-76L136 74h166l273 410 51 76 417 625H877L568 619z"/>
+</svg>
+</button>
+</div>
+
+</form>
+</div>
+</div>
   );
 }
 

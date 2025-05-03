@@ -1,531 +1,215 @@
-.register-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 90vh;
-    background: linear-gradient(to right, #f8f9fa, #e9ecef);
-    padding: 0rem;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-  }
-  .form-group{
-    margin-top: 10rem;
-  }
-  .register-form {
-   padding: 7.5rem 1rem;
-   border-radius: 10px;
-   max-width: 600px;
-   width: 100%;
-  }
-  .vericapture-logo{
-    background-color: rgb(241, 241, 241);
-    margin-top: 0px;
-  }
-  .register-form h2 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    margin-right: 130px;
-  }
-  .form-group{
-    margin-right: 0px;
-  }
- 
-  .register-form form div {
-    margin-bottom: 1rem;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   
- /* This styles all normal input fields */
-.register-form input[type="text"],
-.register-form input[type="email"],
-.register-form input[type="password"] {
-  width: 74%;
-  padding: 1.2rem;
-  margin-top: 1.3rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-left: 3rem;
-  display: block;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.register-form input[type="text"]:hover,
-.register-form input[type="email"]:hover,
-.register-form input[type="password"]:hover {
-  border-color: #14ffa5;
-  color: #aaa;
-  font-size: 0.9rem;
-}
-/* Flex container for first and last name */
-.name-row {
+body, html {
+   background-color: #f4f4f4;
   display: flex;
   justify-content: center;
-  gap: 0.4rem;
-  margin-left: 0px;
-  margin-right: 50px;
+  align-items: center;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-/* Make first and last name inputs smaller */
-.name-row input[type="text"] {
-  width: 40%;
-  margin-left: 0px; /* remove margin-left for first and last name inputs */
+/* Container */
+.auth-container {
+  margin: 0 auto;
+  display: flex;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  max-width: 1200px;
+  padding: 1rem;
 }
+
+/* Left Image */
+.auth-image {
+  flex: 1;
+  height: 50%;
+  width: 100%;
+   
+}
+
+/* Right Form */
+.auth-right {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.auth-logo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.auth-logo img{
+width: 150px;
+}
+
+/* Auth form style*/
+.auth-form {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.auth-form h1 {
+  font-size: 2rem;
+  margin-bottom: 0.2rem;
+}
+
+.auth-form p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.auth-form p a {
+  color:#00ecd0;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+/* Input Styles */
+.auth-form input,
+.auth-form select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  outline: none;
+  
+}
+
+.auth-form input:focus,
+.auth-form select:focus {
+  border-color: #00ecd0;
+  box-shadow: 0 0 5px rgba(0, 236, 208, 0.1);
+}
+
+/* Checkbox style */
+.terms-container {
+  display: flex;
+  align-items: center;
+  gap: 8px; 
+  font-size: 14px;
+  color: #333;
+}
+
+.terms-container input[type="checkbox"] {
+  width: 16px;
+   height: 16px; 
+}
+
+.terms-container a {
+  color: #007BFF;
+  text-decoration: underline;
+}
+
+
+/* Password wrapper */
 .password-wrapper {
   position: relative;
   width: 100%;
-  margin-left: 0rem;
-  margin-top: 0.3rem;
 }
 
 .password-wrapper input {
-  width: 100%;
-  padding: 1.2rem;
-  padding-right: 3rem; /* Make space for the icon */
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  padding-right: 40px;
 }
 
-.password-toggle-icon {
+.toggle-password {
   position: absolute;
-  left: 90%;
   top: 50%;
+  right: 10px;
   transform: translateY(-50%);
-  width: 24px;
-  height: 24px;
   cursor: pointer;
 }
 
-.register-form .country-select {
-    width: 74%;
-    padding: 1.2rem;
-    margin-top: 0.3rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-left: 0rem;
-    margin-right: 3rem;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  .country-select:hover{
-    border-color: #14ffa5;
-    color: #aaa;
-    font-size: 0.9rem;
-  }
-  .check-to input[type="checkbox"]{
-    position: relative;
-    top: -3px;
-    right: 75px;
-  }
-   label span{
-    display: block;
-    align-items: center;
-    font-size: 12px;
-    position: relative;
-    top: -25px;
-    left: 20px;
-  }
-  .register-form button {
-    width: 74%;
-    padding: 1.2rem;
-    background-color: black;
-    color: white;
-    font-size: 1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 0rem;
-    margin-right: 2rem;
-    margin-top: 0rem;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  .register-form button:hover {
-    background-color: #474747;
-  }
-   .check-to span{
-    position: relative;
-    left: 0.5rem;
-  }
- .register-form input[type='checkbox']{
-  position: relative;
-  right: 130px;
-  top: -1px;
- }
-  .register-form a {
-    width: 100%;
-    color: #00fc9b;
-    text-decoration: none;
-  }
-  
-  .register-form a:hover {
-    text-decoration: underline;
-  }
-  .forgot-password span a{
-    display: flex;
-  }
-  .forgot-password a{
-    position: relative;
-    right: 60px;
-  }
-  
-  .line-container {
-    position: relative;
-    width: 65%;
-    margin: 4rem 0 0 5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .line2 {
-    width: 100%;
-    height: 2px;
-    background-color: #ccc;
-    position: relative;
-  }
-  
-  .or-text {
-    position: absolute;
-    background: white;
-    padding: 0 1rem;
-    font-size: 0.9rem;
-    font-weight: bold;
-    color: #555;
-    border-radius: 40px;
-  }
-  
-  .social-login {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 2rem;
-    margin-left: 0rem;
-    margin-right: 1.5rem;
-  }
-  
-  a.google-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 1.2rem 5rem;
-    width: 76%;
-    background-color: #f5f5f5;
-    border-radius: 5px;
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-    font-size: 1.1rem;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  .google-btn:hover {
-    background-color: #e0e0e0;
-    transform: scale(1.05);
-    border: 1px solid #5cf7ae;
-  }
-  
-  /* THIS STYLES ONLY THE G ICON */
-  .google-btn i.fa-google {
-    background: linear-gradient(to bottom left, transparent 49%, #fbbc05 50%) 0
-    25%/48% 40%,
-    linear-gradient(to top left, transparent 49%, #fbbc05 50%) 0 75%/48% 40%,
-    linear-gradient(-40deg, transparent 53%, #ea4335 54%),
-    linear-gradient(45deg, transparent 46%, #4285f4 48%), #34a853;
-  background-repeat: no-repeat;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-}
-  
-  /* OPTIONAL: little rotation on hover */
-  .google-btn:hover i.fa-google {
-    transform: rotate(10deg);
-    transition: transform 0.3s ease;
-  }
-  
-  .social-icons-row {
-    display: flex;
-    justify-content: center;
-    gap: 0.4rem;
-    margin-left: 1px;
-  }
-  .facebook-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.8rem 1.5rem;
-    background-color: #4267b2;
-    color: white;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.1rem;
-    transition: background 0.3s;
-  }
-  .facebook-btn:hover {
-    background-color: #365899;
-  }
-
-  a.media-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 16px 86px !important;
-    border-radius: 8px;
-    width: 100%;
-    text-decoration: none;
-    background-color: #f5f5f5;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-    font-size: 2rem;
-    color: #333;
-  }
-  
-  a.media-button:hover {
-    background-color: #e0e0e0;
-    transform: scale(1.05);
-    border: 1px solid #5cf7ae;
-  }
-  i.bx {
-    width: 30px;
-    height: 30px;
-    color: #0906d4;
-    font-size: 2rem;
-  }
-  .x-icon {
-    width: 30px;
-    height: 30px;
-  }
-  
-
-  /* Your existing styles here... */
-
-/* Responsive Design */
-@media (max-width: 1024px) {
-  .register-container {
-    padding: 0rem 0rem !important;
-    border: none;
-    border-radius: 10px !important;
-    max-width: 99vw !important;
-    width: 858px !important;
-  }
-  span{
-    font-size: 1rem !important;
-    margin-left: 125px !important;
-  }
-  a.form-group {
-    width: 50% !important;
-    font-size: 0.6rem !important;
-    margin-right: 0px !important;
-  }
-  .register-form input[type="text"],
-  .register-form input[type="email"],
-  .register-form input[type="password"],
-  .register-form .country-select,
-  .register-form button {
-    width: 98% !important;
-    margin-left: 50% !important;
-    font-size: 18px;
-  }
-  
-  .name-row {
-    flex-direction: column;
-    align-items: center;
-    margin-left: 0;
-  }
-
-  .name-row input[type="text"] {
-    width: 100%;
-  }
-
-  .line-container {
-    margin: 2rem auto;
-    width: 80%;
-  }
-
-  .social-login {
-    margin-left: 0;
-  }
-  .media-button{
-    padding: 1rem 4.8rem !important;
-    font-size: 1.5rem;
-  }
+.eye-icon {
+  width: 20px;
+  height: 20px;
+  color: #6b7280;
 }
 
-@media (max-width: 768px) {
-  /* Mobile View */
-  .register-container {
-    padding: 0rem;
-    border: none;
-    border-radius: 0;
-    width: 300px !important;
-    position: relative;
-    right: 30px;
-  }
-  .img-fluid {
-    width: 110vw !important;
-    height: 220vh !important;
-    position: relative;
-    left: 100px !important;
-  }
-  .register-form {
-    padding: 1rem;
-    max-width: 66%;
-    margin-right: 150px
-  }
-  img.vericapture-logo{
-    width: 68%;
-    height: auto;
-    margin-top: 10px !important;
-    margin-right: 80px !important;
-  }
-  .register-form h2 {
-    font-size: 1.5rem;
-    margin-left: 40px;
-  }
+.error-text {
+  color: red;
+  font-size: 14px;
+  margin-top: 6px;
+}
 
-form{
-  display: block !important;
-  width: 100% !important;
-  }
-  
-  .form-group {
-  position: relative;
-  right: 230px;
-  font-size: 16px !important;
-  }
 
-  span .login {
-    position: relative;
-    right: 0px!important;
-  }
-  span{
-    font-size: 0.8rem !important;
-    margin-left: 0px !important;
-    width: 100% !important;
-  }
-  .form-group span {
-    display: block;
-    position: relative;
-    width: 90%;
-    font-size: 0.6rem;
-    right: 50px;
-    top: -90px;
-  }
-  .name-row {
-    width: 100% !important;
-    flex-direction: column;
-    gap: 0.1rem !important;
-  }
+/* Button */
+.auth-form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #d1d1d1;
+  border: none;
+  border-radius: 6px;
+  color: #444;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-  .name-row input[type="text"]{
-    padding: 18px 20px !important;
-    position: relative;
-    left: -4%;
-  } 
-  .register-form input[type="text"],
-  .register-form input[type="email"],
-  .register-form input[type="password"],
-  .register-form .country-select,
-  .register-form button {
-    width: 100%;
-    position: relative;
-    right: 28%;
-    top: -75px;
-  }
-
-  .password-wrapper {
-    margin-left: 0;
-  }
-
-  .password-wrapper.password-toggle-icon {
-    position: absolute;
-    right: 90%;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-  }
-  .check-to{
-    position: relative;
-    right: 110px !important;
-  }
-  .register-form input[type='checkbox']{
-    position: relative;
-    top: -64px;
-    left: 0;
-  }
-.forgot-password span {
+/* Divider style */
+.divider {
   display: flex;
-  text-align: left;
-  position: relative;
-  top: 0px;
-  right: 324px;
+  align-items: center;
+  text-align: center;
+  margin: 1.5rem 0;
 }
-.forgot-password a{
-  font-size: 12px;
-  font-weight: 600;
-  position: relative;
-  top: -20px;
-  right: 83%;
-}
-.register-form button{
-  margin-top: 30px;
-}
-  .line-container {
-    margin-right: 0px !important;
-    width: 90%;
-  }
-   .line2 {
-    width: 90% !important;
-    height: 2px;
-    background-color: #ccc;
-    position: relative;
-    top: -70px;
-    right: 0px !important;
-    left: 60px;
-  }
-  .or-text {
-    display: flex;
-    align-items: center;
-    position: absolute;
-    background: white;
-    padding: 0 0.2rem !important;
-    font-size: 0.8rem !important;
-    width: 70% !important;
-    font-weight: bold;
-    color: #555;
-    border-radius: 15px !important;
-    top: -80px;
-    right: 5px !important;
-    left: 80px;
-  }
-  .social-login {
-    position: relative;
-    top: -80px;
-    width: 100%;
-    left: 0;
-  }
 
-  .google-btn {
-    padding: 1.2rem 2.3rem !important;
-    width: 51vw !important;
-    font-size: 0.8rem !important;
-    margin-left: 110px !important;
-  }
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+}
 
-  .social-icons-row{
-    width: 100%;
-    padding: 1rem;
-    font-size: 2rem;
-    margin-left: 110px !important;
-  }
-  
-  a.media-button {
-    width: 90% !important;
-    padding: 1rem 2rem !important;
-  }
-  
+.divider:not(:empty)::before {
+  margin-right: 1rem;
+}
+
+.divider:not(:empty)::after {
+  margin-left: 1rem;
+}
+
+/* Social Buttons */
+.social-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.social-button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: #f5f5f5;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.social-button:hover {
+  background-color: #e0e0e0;
+}
+
+.social-button svg {
+  width: 20px;
+  height: 20px;
 }

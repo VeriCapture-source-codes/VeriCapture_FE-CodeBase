@@ -4,7 +4,7 @@ import house from './assets/House.png';
 import explore from './assets/Explore.png';
 import notification from './assets/notification.png';
 import user02 from './assets/user02.png';
-import frame121 from './assets/frame121.png';
+
 
 const Profile = () => {
 
@@ -138,7 +138,7 @@ const Profile = () => {
         <label>
           <img 
             className="logo2"
-            src={frame121}
+            src= "/Frame121.png"
             alt="logo" 
           />
         </label>
