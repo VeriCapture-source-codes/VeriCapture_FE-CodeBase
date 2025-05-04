@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import Webcam from 'react-webcam';
+import { toast } from 'react-hot-toast';
 import { apiRequest } from '../utils/api';
 
 function GoLiveModal({ selectedCategory, onClose }) {
@@ -9,6 +10,7 @@ function GoLiveModal({ selectedCategory, onClose }) {
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [recordedChunks, setRecordedChunks] = useState([]);
   const [caption, setCaption] = useState('');
+  const [videoPreviewUrl, setVideoPreviewUrl] = useState(null);
 
   const videoConstraints = {
     width: 1280,
@@ -21,13 +23,24 @@ function GoLiveModal({ selectedCategory, onClose }) {
   };
 
   const startRecording = () => {
-    const stream = webcamRef.current.stream;
+  const stream = webcamRef.current.stream;
     const recorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
 
     recorder.ondataavailable = (event) => {
       if (event.data.size > 0) {
         setRecordedChunks(prev => [...prev, event.data]);
       }
+    };
+
+    recorder.onstop = () => {
+      const blob = new Blob(recordedChunks, { type: 'video/webm' });
+      const videoURL = URL.createObjectURL(blob);
+      setVideoPreviewUrl(videoURL);
+
+      // Stop webcam stream
+      const tracks = webcamRef.current?.stream?.getTracks();
+      tracks?.forEach(track => track.stop());
+      setShowCamera(false);
     };
 
     recorder.start();
@@ -44,7 +57,7 @@ function GoLiveModal({ selectedCategory, onClose }) {
 
   const handleSubmit = async () => {
     if (!caption || recordedChunks.length === 0) {
-      alert('Please open camera, record a video, and enter a caption.');
+      toast.error('Please open camera, record a video, and enter a caption.');
       return;
     }
 
@@ -59,30 +72,29 @@ function GoLiveModal({ selectedCategory, onClose }) {
       formData.append('media', file);
       formData.append('latitude', latitude);
       formData.append('longitude', longitude);
-      formData.append('category', selectedCategory); // append selected category
-
-      formData.append('location', latitude+" "+latitude); // append selected category
+      formData.append('category', selectedCategory);
+      formData.append('location', `${latitude}, ${longitude}`);
 
       try {
-           const result = await apiRequest({
-                method: 'POST',
-                route: '/users/upload-post', // <-- your login endpoint
-                formData,
-              });
+        const result = await apiRequest({
+          method: 'POST',
+          route: '/users/upload-post',
+          formData,
+        });
 
         if (result.success) {
-          alert('Live video uploaded successfully!');
+          toast.success('Live video uploaded successfully!');
           handleCancel(); // Reset everything on success
           window.location.reload();
         } else {
-          alert(result.message || 'Failed to upload video.');
+          toast.error(result.message || 'Failed to upload video.');
         }
       } catch (error) {
-        alert('Error uploading video.');
+        toast.error('Error uploading video.');
         console.error(error);
       }
     }, (err) => {
-      alert('Unable to access location.');
+      toast.error('Unable to access location.');
       console.error(err);
     });
   };
@@ -91,10 +103,16 @@ function GoLiveModal({ selectedCategory, onClose }) {
     if (mediaRecorder && recording) {
       mediaRecorder.stop();
     }
+
+    // Stop webcam stream if active
+    const tracks = webcamRef.current?.stream?.getTracks();
+    tracks?.forEach(track => track.stop());
+
     setShowCamera(false);
     setRecording(false);
     setMediaRecorder(null);
     setRecordedChunks([]);
+    setVideoPreviewUrl(null);
     setCaption('');
     onClose(); // Close the modal
   };
@@ -110,16 +128,16 @@ function GoLiveModal({ selectedCategory, onClose }) {
           Category: <strong>{selectedCategory}</strong>
         </p>
 
-        <div 
+        <div
           style={{
-            border: '2px solid #ccc', 
-            padding: '1rem', 
-            borderRadius: '8px', 
-            marginBottom: '1rem', 
+            border: '2px solid #ccc',
+            padding: '1rem',
+            borderRadius: '8px',
+            marginBottom: '1rem',
             textAlign: 'center',
             cursor: 'pointer'
           }}
-          onClick={showCamera ? undefined : openCamera}
+          onClick={!showCamera && !videoPreviewUrl ? openCamera : undefined}
         >
           {showCamera ? (
             <Webcam
@@ -128,11 +146,13 @@ function GoLiveModal({ selectedCategory, onClose }) {
               videoConstraints={videoConstraints}
               style={{ width: '100%' }}
             />
+          ) : videoPreviewUrl ? (
+            <video src={videoPreviewUrl} controls style={{ width: '100%', borderRadius: '8px' }} />
           ) : (
             <div style={{ color: '#666' }}>
-              <img 
-                src="https://img.icons8.com/ios/50/000000/camera--v1.png" 
-                alt="Open Camera" 
+              <img
+                src="https://img.icons8.com/ios/50/000000/camera--v1.png"
+                alt="Open Camera"
                 style={{ marginBottom: '0.5rem' }}
               />
               <div>Click to open camera</div>
@@ -173,7 +193,16 @@ function GoLiveModal({ selectedCategory, onClose }) {
           <button onClick={handleCancel} style={{ padding: '0.5rem 1rem', border: '1px solid #ccc' }}>
             Cancel
           </button>
-          <button onClick={handleSubmit} style={{ backgroundColor: '#00e0b8', color: 'white', padding: '0.5rem 1rem' }}>
+          <button
+            onClick={handleSubmit}
+            disabled={!caption || recordedChunks.length === 0}
+            style={{
+              backgroundColor: (!caption || recordedChunks.length === 0) ? 'gray' : '#00e0b8',
+              color: 'white',
+              padding: '0.5rem 1rem',
+              cursor: (!caption || recordedChunks.length === 0) ? 'not-allowed' : 'pointer'
+            }}
+          >
             Submit
           </button>
         </div>
