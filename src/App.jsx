@@ -5,10 +5,10 @@ import VerifyResetOtp from './VerifyOtp.jsx'
 import ResetPassword from './ResetPassword.jsx'
 import {Toaster} from 'react-hot-toast'
 import ExplorePage from './Explore.jsx'
-import Login from './Login.jsx'
+import LoginPage from './Login.jsx'
 import Register from './Register.jsx'
 import Profile from './CreateProfile.jsx'
-import '@fortawesome/fontawesome-free/css/all.min.css'
+
 function App() {
   return (
     <div>
@@ -40,7 +40,7 @@ function App() {
         <Route path="/explore" element={<ExplorePage />} />
 
         {/* Login Page */}
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<LoginPage />} />
 
         {/* Register Page */}
         <Route path="/register" element={<Register />} />
