@@ -21,11 +21,16 @@ function GoLiveModal({ selectedCategory, onClose }) {
     try {
       const userStream = await navigator.mediaDevices.getUserMedia(videoConstraints);
       setStream(userStream);
+      setShowCamera(true);
+     
+     setTimeout(() => {
       if (videoRef.current) {
         videoRef.current.srcObject = userStream;
         videoRef.current.play();
       }
-      setShowCamera(true);
+
+     }, 100);
+      
     } catch (err) {
       toast.error('Failed to access camera or microphone');
       console.error('Camera error:', err);
