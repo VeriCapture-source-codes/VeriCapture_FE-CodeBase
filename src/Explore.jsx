@@ -44,7 +44,13 @@ function ExplorePage() {
       });
       if (result.success) {
         toast.success('Post liked!');
-        fetchPosts();
+        setPosts(prevPosts =>
+          prevPosts.map(post =>
+            post._id === postId ? { ...post, likes: [...(post.likes || []), {_id: 'temp'}]  } : post
+          )
+        );
+        fetchPosts()
+      
       } else {
         toast.error(result.message || 'Failed to like post');
       }
@@ -73,8 +79,7 @@ function ExplorePage() {
   };
   
   const handleEdit = () => {
-    // You can either open a modal or navigate to an edit page
-    // Example: navigate(`/edit-post/${post._id}`) using useNavigate from react-router
+    
     toast('Edit functionality not implemented yet'); // Placeholder
   };
   
@@ -164,7 +169,15 @@ function ExplorePage() {
                 .filter(post => selectedCategory === 'General' || post.category === selectedCategory
                 )
                 .map(post => (
-                  <div key={post._id} className="post-card">
+                 <div key={post._id} className="post-card">
+                  <div className="post-header">
+                   <img
+                   src={post.user?.avatar || "./vericapture img.png"}
+                  alt="User Avatar"
+                 className="avatar" //handles avatar and username
+                />
+              <span className="username">{post.user?.name || "John Kenedy"}</span>
+             </div>
                     <h4 className="post-title">{post.caption}</h4>
                     <p className="post-meta"><strong>Location:</strong> {post.location || 'Unknown'}</p>
                     {renderMedia(post.media)}
@@ -176,6 +189,7 @@ function ExplorePage() {
                     <div className="post-actions">
               <button className="icon-btn" onClick={() => handleLike(post._id)} title="Like">
                 <Heart size={20} color="red" />
+                <span className="like-count">{post.likes ?.lenght || 0}</span>
               </button>
             
              <button className="icon-btn" onClick={() => handleEdit(post)} title="Edit">

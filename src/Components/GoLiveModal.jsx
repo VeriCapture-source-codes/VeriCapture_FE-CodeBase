@@ -1,29 +1,39 @@
 import React, { useState, useRef } from 'react';
-import Webcam from 'react-webcam';
 import { toast } from 'react-hot-toast';
 import { apiRequest } from '../utils/api';
 
 function GoLiveModal({ selectedCategory, onClose }) {
-  const webcamRef = useRef(null);
+  const videoRef = useRef(null);
   const [showCamera, setShowCamera] = useState(false);
   const [recording, setRecording] = useState(false);
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [recordedChunks, setRecordedChunks] = useState([]);
   const [caption, setCaption] = useState('');
   const [videoPreviewUrl, setVideoPreviewUrl] = useState(null);
+  const [stream, setStream] = useState(null);
 
   const videoConstraints = {
-    width: 1280,
-    height: 720,
-    facingMode: "user"
+    video: { width: 1280, height: 720, facingMode: 'user' },
+    audio: true,
   };
 
-  const openCamera = () => {
-    setShowCamera(true);
+  const openCamera = async () => {
+    try {
+      const userStream = await navigator.mediaDevices.getUserMedia(videoConstraints);
+      setStream(userStream);
+      if (videoRef.current) {
+        videoRef.current.srcObject = userStream;
+        videoRef.current.play();
+      }
+      setShowCamera(true);
+    } catch (err) {
+      toast.error('Failed to access camera or microphone');
+      console.error('Camera error:', err);
+    }
   };
 
   const startRecording = () => {
-  const stream = webcamRef.current.stream;
+    if (!stream) return;
     const recorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
 
     recorder.ondataavailable = (event) => {
@@ -37,9 +47,7 @@ function GoLiveModal({ selectedCategory, onClose }) {
       const videoURL = URL.createObjectURL(blob);
       setVideoPreviewUrl(videoURL);
 
-      // Stop webcam stream
-      const tracks = webcamRef.current?.stream?.getTracks();
-      tracks?.forEach(track => track.stop());
+      stream.getTracks().forEach(track => track.stop());
       setShowCamera(false);
     };
 
@@ -84,7 +92,7 @@ function GoLiveModal({ selectedCategory, onClose }) {
 
         if (result.success) {
           toast.success('Live video uploaded successfully!');
-          handleCancel(); // Reset everything on success
+          handleCancel();
           window.location.reload();
         } else {
           toast.error(result.message || 'Failed to upload video.');
@@ -103,10 +111,9 @@ function GoLiveModal({ selectedCategory, onClose }) {
     if (mediaRecorder && recording) {
       mediaRecorder.stop();
     }
-
-    // Stop webcam stream if active
-    const tracks = webcamRef.current?.stream?.getTracks();
-    tracks?.forEach(track => track.stop());
+    if (stream) {
+      stream.getTracks().forEach(track => track.stop());
+    }
 
     setShowCamera(false);
     setRecording(false);
@@ -114,15 +121,29 @@ function GoLiveModal({ selectedCategory, onClose }) {
     setRecordedChunks([]);
     setVideoPreviewUrl(null);
     setCaption('');
-    onClose(); // Close the modal
+    onClose();
   };
 
   return (
     <div style={{
-      position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-      background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center'
+      position: 'fixed',
+      top: 0, left: 0, right: 0, bottom: 0,
+      background: 'rgba(0,0,0,0.7)',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'flex-start',
+      overflowY: 'auto',
+      padding: '2rem',
+      zIndex: 9999,
     }}>
-      <div style={{ background: 'white', padding: '2rem', borderRadius: '8px', width: '90%', maxWidth: '500px' }}>
+      <div style={{
+        background: 'white',
+        padding: '1.5rem',
+        borderRadius: '8px',
+        width: '100%',
+        maxWidth: '500px',
+        boxSizing: 'border-box',
+      }}>
         <h2 style={{ textAlign: 'center' }}>Upload a Live Video</h2>
         <p style={{ textAlign: 'center', marginBottom: '1rem' }}>
           Category: <strong>{selectedCategory}</strong>
@@ -140,14 +161,19 @@ function GoLiveModal({ selectedCategory, onClose }) {
           onClick={!showCamera && !videoPreviewUrl ? openCamera : undefined}
         >
           {showCamera ? (
-            <Webcam
-              audio
-              ref={webcamRef}
-              videoConstraints={videoConstraints}
-              style={{ width: '100%' }}
+            <video
+              ref={videoRef}
+              autoPlay
+              muted
+              playsInline
+              style={{ width: '100%', borderRadius: '8px', maxHeight: '300px', objectFit: 'cover' }}
             />
           ) : videoPreviewUrl ? (
-            <video src={videoPreviewUrl} controls style={{ width: '100%', borderRadius: '8px' }} />
+            <video
+              src={videoPreviewUrl}
+              controls
+              style={{ width: '100%', borderRadius: '8px', maxHeight: '300px', objectFit: 'cover' }}
+            />
           ) : (
             <div style={{ color: '#666' }}>
               <img
