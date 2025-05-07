@@ -223,7 +223,7 @@ const handleDelete = async (postId) => {
 
                   user={{
                     name: post.user ? `${post.user.firstName || ''} ${post.user.lastName || ''}`.trim() : 'Anonymous',
-                    avatar: post.user?.thumbnail || '../src/assets/images/user.png'
+                    avatar: post.user?.thumbnail || '../images/user.png'
                   }}
                                     time="2m ago"
                   location={post.location || 'Unknown'}
