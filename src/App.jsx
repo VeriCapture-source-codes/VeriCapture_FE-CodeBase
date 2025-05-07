@@ -8,6 +8,7 @@ import {Toaster} from 'react-hot-toast'
 import ExplorePage from './Explore.jsx'
 import LoginPage from './Login.jsx'
 import Register from './Register.jsx'
+import NotificationPage from './Notification.jsx'
 import Profile from './CreateProfile.jsx'
 
 function App() {
@@ -45,6 +46,11 @@ function App() {
 
         {/* Register Page */}
         <Route path="/register" element={<Register />} />
+
+        {/* Notification Page */}
+        <Route path="/notification" element={<NotificationPage />} />
+
+        
 
         {/* Profile Page */}
         <Route path="/profile" element={<Profile />} />

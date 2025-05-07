@@ -117,7 +117,7 @@ function ExplorePage() {
             Explore
           </Link>
          
-          <Link to="#" className="nav-item">
+          <Link to="/notification" className="nav-item">
             <img src="/notification.png" alt="Notification" className="icon" />
             Notification
           </Link>
@@ -172,11 +172,11 @@ function ExplorePage() {
                  <div key={post._id} className="post-card">
                   <div className="post-header">
                    <img
-                   src={post.user?.avatar || "./vericapture img.png"}
+                   src={post.user?.avatar || "./avatar.jpg"}
                   alt="User Avatar"
                  className="avatar" //handles avatar and username
                 />
-              <span className="username">{post.user?.name || "John doe"}</span>
+              <span className="username">{post.user?.name || "John Doe"}</span>
              </div>
                     <h4 className="post-title">{post.caption}</h4>
                     <p className="post-meta"><strong>Location:</strong> {post.location || 'Unknown'}</p>

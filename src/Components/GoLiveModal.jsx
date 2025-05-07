@@ -234,7 +234,7 @@ function GoLiveModal({ selectedCategory, onClose }) {
               cursor: (!caption || recordedChunks.length === 0) ? 'not-allowed' : 'pointer'
             }}
           >
-            Submit
+            Post
           </button>
         </div>
       </div>

@@ -18,9 +18,10 @@
   border-right: 1px solid #e5e7eb;
 }
 
-.sidebar-logo {
-  margin-bottom: 2.5rem;
+.sidebar-logo img {
+  margin-bottom: 1rem;
   width: 50%;
+  
   
 }
 

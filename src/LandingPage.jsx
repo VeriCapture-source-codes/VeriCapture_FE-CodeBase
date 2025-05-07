@@ -9,7 +9,9 @@ const Landingpage = () => {
     <div className="landing">
       {/* Navbar */}
       <nav className="navbar">
-        <div className="logo">VERICAPTURE</div>
+        <div className="logo">
+          <img src="/vericapture img.png" alt="Logo" className="logo-img" />
+          </div>
         <div className="nav-links">
           <a href="#">Home</a>
           <a href="#">RealTime Capture</a>
@@ -44,18 +46,18 @@ const Landingpage = () => {
         <div className="card">
           <strong>Kaycee Pastor</strong> <span>4hr ago</span>
           <p>Fuel tanker falls and caused serious traffic on Awka Onitsha Express way</p>
-          <img src="/images/traffic-placeholder.jpg" alt="Traffic report" />
+          <img src="/image.png" alt="Traffic report" />
           <div className="card-actions">
             <span>👍 63</span>
             <span>💬 3</span>
-            <span>👁 37k</span>
+            <span>👁 37k</span> 
           </div>
         </div>
       </section>
 
       {/* Map Section */}
       <section className="map-section">
-        <img src="/images/map-placeholder.jpg" alt="Live Map" className="map-img" />
+        <img src="/image15.png" alt="Live Map" className="map-img" />
         <div>
           <h2>See where it’s Happening</h2>
           <p>
@@ -70,12 +72,8 @@ const Landingpage = () => {
         <h2>Over <span>500+</span> lives Saved</h2>
         <p>Thanks to the heroes we never met</p>
         <div className="avatars">
-          <img src="/images/user1.jpg" alt="avatar" />
-          <img src="/images/user2.jpg" alt="avatar" />
-          <img src="/images/user3.jpg" alt="avatar" />
-          <img src="/images/user4.jpg" alt="avatar" />
-          <img src="/images/user5.jpg" alt="avatar" />
-        </div>
+          <img src="/Frame 238.png" alt="avatar" />
+           </div>
       </section>
 
       {/* What We Offer */}
