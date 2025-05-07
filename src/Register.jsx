@@ -81,7 +81,6 @@ function Register() {
         },
       });
 
-      console.log("Signup Response:", response);
 
       if (response.success) {
         toast.success('Account created successfully! Redirecting...');
@@ -100,7 +99,6 @@ function Register() {
   useEffect(() => {
     if (shouldRedirect) {
       const timer = setTimeout(() => {
-        console.log("Redirecting to /login...");
         navigate('/login');
       }, 1000);
       return () => clearTimeout(timer);

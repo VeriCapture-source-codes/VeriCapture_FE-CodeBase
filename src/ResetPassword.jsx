@@ -57,7 +57,6 @@ function ResetPassword() {
         },
       });
 
-      console.log('Reset Password Response:', data);
 
       if (data.success) {
         setMessage('Password reset successful! Redirecting...');

@@ -48,11 +48,12 @@ function LoginPage() {
       },
     });
 
-    console.log('Login Response:', data);
 
     if(data.success){
-      localStorage.setItem('authToken', data.data._id);
-      console.log(data.data)
+
+      localStorage.setItem('authToken', data.data.data._id);
+      localStorage.setItem('userEmail', data.data.data.email);
+
       toast.success(data.message+' Redirecting...');
       setTimeout(() => navigate('/home'), 500);
     }

@@ -1,4 +1,5 @@
 import './App.css'
+import './Components/SideMenu.css'
 import { Routes, Route } from 'react-router-dom'
 import ForgotPassword from './ForgetPassword.jsx'
 import VerifyResetOtp from './VerifyOtp.jsx'
@@ -26,6 +27,8 @@ function App() {
         }} />
 
       <Routes>
+      <Route path="/" element={<LoginPage />} />
+
         {/* Home Page Router */}
       <Route path="/home" element={<Home/>} />
 

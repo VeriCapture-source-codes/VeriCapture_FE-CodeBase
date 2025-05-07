@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar, Nav, Container, Dropdown } from 'react-bootstrap';
 
-const Header = ({ user }) => {
+const Header = ({ user, userEmail }) => {
     return (
     <Navbar bg="white" expand="lg" className="px-4 shadow-sm">
       <Container fluid>
@@ -31,13 +31,13 @@ const Header = ({ user }) => {
             <Dropdown.Toggle variant="light" className="d-flex align-items-center gap-2">
               {/* Left side: name + location */}
               <div className="text-start">
-                <div className="fw-semibold">{user?.name || 'Guest'}</div>
+                <div className="fw-semibold">{userEmail|| 'Guest'}</div>
                 <div className="text-muted small">Lagos, Nigeria</div>
               </div>
 
               {/* Right side: user image */}
               <img
-                src={user?.avatar || '/user.jpg'} // fallback to default avatar
+                src={user.data.thumbnail || '../../src/assets/images/user.png'} // fallback to default avatar
                 alt="User"
                 width="36"
                 height="36"
