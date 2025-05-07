@@ -1,5 +1,6 @@
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
+import LandingPage from './LandingPage.jsx';
 import ForgotPassword from './ForgetPassword.jsx'
 import VerifyResetOtp from './VerifyOtp.jsx'
 import ResetPassword from './ResetPassword.jsx'
@@ -25,7 +26,7 @@ function App() {
 
       <Routes>
         {/* Home Page Router */}
-      <Route path="/" element={<div className="text-center mt-10 text-2xl">Welcome Home 🚀</div>} />
+        <Route path="/" element={<LandingPage />} />
 
         {/* Forgot Password Router */}
         <Route path="/forgot-password" element={<ForgotPassword />} />

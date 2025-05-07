@@ -7,6 +7,7 @@ import './Login.css';
 
 function LoginPage() {
   const navigate = useNavigate();
+
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -50,13 +51,15 @@ function LoginPage() {
 
       console.log('Login Response:', data);
 
-      if (data.success && data.data?._id) {
-        localStorage.setItem('authToken', data.data._id);
-        toast.success('Login successful! Redirecting...');
-        setTimeout(() => navigate('/profile'), 1000);
+      if (data.success) {
+        const token = data.data?.token || 'session-active';
+        localStorage.setItem('authToken', token);
+        toast.success('Login successful!');
+        navigate('/explore');
       } else {
         toast.error(data.message || 'Login failed.');
       }
+      
     } catch (error) {
       console.error('Login Error:', error);
       toast.error('An unexpected error occurred.');

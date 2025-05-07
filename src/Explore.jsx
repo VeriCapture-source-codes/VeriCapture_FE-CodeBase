@@ -176,7 +176,7 @@ function ExplorePage() {
                   alt="User Avatar"
                  className="avatar" //handles avatar and username
                 />
-              <span className="username">{post.user?.name || "John Kenedy"}</span>
+              <span className="username">{post.user?.name || "John doe"}</span>
              </div>
                     <h4 className="post-title">{post.caption}</h4>
                     <p className="post-meta"><strong>Location:</strong> {post.location || 'Unknown'}</p>
