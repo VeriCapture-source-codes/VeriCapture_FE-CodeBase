@@ -69,8 +69,9 @@ const ForgotPassword = () => {
           We'll Send you an Email to <span className="span-text">
           Reset your Password </span>
         </p>
-
-        <form onSubmit={handleSubmit}>
+        <div className="row">
+          <div className="col-3"></div>
+          <div className="col-6">      <form onSubmit={handleSubmit}>
           <div className="forgot-input">
             <img src="/message img.png" alt="Email Icon" className="email-icon" />
             <input
@@ -84,7 +85,7 @@ const ForgotPassword = () => {
             />
           </div>
 
-          <button type="submit" className="submit-btn btn btn-success" disabled={isSubmitting}>
+          <button type="submit" className="submit-btn btn btn-success mb-2" disabled={isSubmitting}>
             {isSubmitting ? "Requesting..." : "Submit"}
           </button>
 
@@ -92,7 +93,12 @@ const ForgotPassword = () => {
         </form>
 <div className="mt-2">  <Link to ="/login" className="back-link">
            BACK TO LOGIN
-        </Link></div>
+        </Link></div></div>
+          <div className="col-3"></div>
+
+        </div>
+
+  
       
       </div>
     </div>
