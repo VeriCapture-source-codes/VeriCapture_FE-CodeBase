@@ -54,7 +54,7 @@ function LoginPage() {
       localStorage.setItem('authToken', data.data._id);
       console.log(data.data)
       toast.success(data.message+' Redirecting...');
-      //setTimeout(() => navigate('/home'), 500);
+      setTimeout(() => navigate('/home'), 500);
     }
     else {
       // Only show error if explicitly failed
