@@ -2,7 +2,8 @@
 /* Container */
 .login-container {
   display: flex;
-  background-color: #f8f9fa;
+  background-color: #F5F5F5;
+  padding: 40px;
 }
 
 /* Left Image Section */

@@ -8,6 +8,8 @@ import ExplorePage from './Explore.jsx'
 import LoginPage from './Login.jsx'
 import Register from './Register.jsx'
 import Profile from './CreateProfile.jsx'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Home from './Home.jsx'
 
 function App() {
   return (
@@ -25,7 +27,7 @@ function App() {
 
       <Routes>
         {/* Home Page Router */}
-      <Route path="/" element={<div className="text-center mt-10 text-2xl">Welcome Home 🚀</div>} />
+      <Route path="/home" element={<Home/>} />
 
         {/* Forgot Password Router */}
         <Route path="/forgot-password" element={<ForgotPassword />} />
