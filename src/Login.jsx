@@ -93,16 +93,16 @@ function LoginPage() {
         <div className='row'>
           <div className='col-12 mb-3'>
             <button className='btn btn-danger form-control loginbtn btn-no-radius'>
-          <img src='../src/assets/images/google.png'/>
+          <img src='/images/google.png'/>
           Log in with Google</button>
           </div>
           <div className='col-6'>
             <button className='btn btn-primary form-control loginbtn btn-no-radius'>
-          <img src='../src/assets/images/facebook.png'/>
+          <img src='/images/facebook.png'/>
           Log in with Facebook</button>
           </div> <div className='col-6'>
             <button className='btn btn-secondary form-control loginbtn btn-no-radius'>
-          <img src='../src/assets/images/x.png'/>
+          <img src='/images/x.png'/>
           Log in with X</button>
           </div>
         </div>

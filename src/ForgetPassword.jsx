@@ -80,19 +80,20 @@ const ForgotPassword = () => {
               value={form.email}
               onChange={handleChange}
               required
+              className="form-control"
             />
           </div>
 
-          <button type="submit" className="submit-btn" disabled={isSubmitting}>
+          <button type="submit" className="submit-btn btn btn-success" disabled={isSubmitting}>
             {isSubmitting ? "Requesting..." : "Submit"}
           </button>
 
           {message && <p className="message">{message}</p>}
         </form>
-
-        <Link to ="/login" className="back-link">
+<div className="mt-2">  <Link to ="/login" className="back-link">
            BACK TO LOGIN
-        </Link>
+        </Link></div>
+      
       </div>
     </div>
   );
