@@ -190,7 +190,7 @@ const handleDelete = async (postId) => {
     <div className="input-group custom-update-box ">
       <span className="input-group-text bg-white border-end-0 p-0 pe-2 ">
         <img
-          src={user.data.thumbnail || '../../src/assets/images/user.png'}
+          src={user.data.thumbnail || '../../images/user.png'}
           alt="User"
           width="30"
           height="30"

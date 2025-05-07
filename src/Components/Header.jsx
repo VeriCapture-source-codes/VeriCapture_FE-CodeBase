@@ -8,7 +8,7 @@ const Header = ({ user, userEmail }) => {
         {/* Logo */}
         <Navbar.Brand href="#">
           <img
-            src="../../src/assets/images/logo.png"
+            src="../../images/logo.png"
             alt="VeriCapture Logo"
             height="40"
             className="d-inline-block align-top"
@@ -37,7 +37,7 @@ const Header = ({ user, userEmail }) => {
 
               {/* Right side: user image */}
               <img
-                src={user.data.thumbnail || '../../src/assets/images/user.png'} // fallback to default avatar
+                src={user.data.thumbnail || '../../images/user.png'} // fallback to default avatar
                 alt="User"
                 width="36"
                 height="36"
