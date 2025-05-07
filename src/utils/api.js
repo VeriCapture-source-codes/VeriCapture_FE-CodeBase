@@ -1,4 +1,4 @@
-const baseUrl = 'https://vericapture.com.ng/api/'; // The Base URL for the API
+const baseUrl = 'https://veribackend.onrender.com/api/'; // The Base URL for the API
 
 export async function apiRequest({ method = 'GET', route, body = null, formData = null }) {
   try {

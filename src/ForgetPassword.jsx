@@ -91,9 +91,11 @@ const ForgotPassword = () => {
 
           {message && <p className="message">{message}</p>}
         </form>
-<div className="mt-2">  <Link to ="/login" className="back-link">
+<div className="mt-2">
+    <Link to ="/login" className="back-link mt-3">
            BACK TO LOGIN
-        </Link></div></div>
+        </Link>
+        </div></div>
           <div className="col-3"></div>
 
         </div>
