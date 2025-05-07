@@ -27,7 +27,8 @@ function ExplorePage() {
        });
 
       if (result.success) {
-        setPosts(result.data.posts || []);
+        setPosts(result.data.posts || []); 
+        console.log
       } else {
         toast.error('Failed to fetch posts:', result.message);
       }
@@ -176,7 +177,7 @@ function ExplorePage() {
                   alt="User Avatar"
                  className="avatar" //handles avatar and username
                 />
-              <span className="username">{post.user?.name || "John Doe"}</span>
+              <span className="username">{post.user?.firstName +"  "+post.user?.lastName}</span>
              </div>
                     <h4 className="post-title">{post.caption}</h4>
                     <p className="post-meta"><strong>Location:</strong> {post.location || 'Unknown'}</p>
@@ -187,10 +188,10 @@ function ExplorePage() {
                      refreshPosts={fetchPosts} />
 
                     <div className="post-actions">
-              <button className="icon-btn" onClick={() => handleLike(post._id)} title="Like">
-                <Heart size={20} color="red" />
-                <span className="like-count">{post.likes ?.lenght || 0}</span>
-              </button>
+                    <button className="icon-btn" onClick={() => handleLike(post._id)} title="Like">
+  <Heart size={20} color="red" />
+  <span className="like-count">{post.likes?.length || 0}</span>
+</button>
             
              <button className="icon-btn" onClick={() => handleEdit(post)} title="Edit">
                 <Edit size={20} color="blue" />

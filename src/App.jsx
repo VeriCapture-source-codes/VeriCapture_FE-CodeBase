@@ -10,6 +10,9 @@ import LoginPage from './Login.jsx'
 import Register from './Register.jsx'
 import NotificationPage from './Notification.jsx'
 import Profile from './CreateProfile.jsx'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Home from './Home.jsx';
+
 
 function App() {
   return (
@@ -28,6 +31,13 @@ function App() {
       <Routes>
         {/* Home Page Router */}
         <Route path="/" element={<LandingPage />} />
+
+        {/* Home Page */}
+        <Route path="/home" element={<Home />} />
+
+        {/* Create Profile Page */}
+        <Route path="/create-profile" element={<Profile />} />
+
 
         {/* Forgot Password Router */}
         <Route path="/forgot-password" element={<ForgotPassword />} />
